@@ -42,12 +42,13 @@ void PU_v1(const input_t& A_value, const value_t& B_value, const index_t o_index
 	value_t value = A_value * B_value;
 	out[o_index_col] = temp + value;
 }
-void PE_v1(const input_t A_matrix[IN_ROW_DIM][IN_COL_DIM],const weight_t non_zero_list[MAX_NON_ZERO], output_t output_matrix[OUT_ROW_DIM][OUT_COL_DIM / PE_NUM]){
+void PE_v1(const input_t A_matrix[IN_ROW_DIM][IN_COL_DIM],const weight_t non_zero_list[MAX_NON_ZERO], const ap_uint<6> max, output_t output_matrix[OUT_ROW_DIM][OUT_COL_DIM / PE_NUM]){
 	#pragma HLS bind_storage variable = output_matrix type = RAM_S2P
 	non_zero_iteration_loop:for(int i = 0 ; i < MAX_NON_ZERO ; i++){
 		#pragma HLS pipeline II = 1
 		// PU_level parallel
-        
+        if(i == max)
+            break;
 		PU_loop:for(int j = 0; j < IN_ROW_DIM; j++){
             #pragma HLS unroll factor = IN_ROW_DIM
             #pragma HLS pipeline II =1
@@ -70,7 +71,7 @@ void reset_output(output_t matrix[OUT_ROW_DIM][OUT_COL_DIM / PE_NUM]){
         }
     }
 }
-void top_model(const input_t A_matrix[IN_ROW_DIM][IN_COL_DIM],const weight_t non_zero_list[PE_NUM][MAX_NON_ZERO], output_t output_matrix[OUT_ROW_DIM][OUT_COL_DIM]){
+void top_model(const input_t A_matrix[IN_ROW_DIM][IN_COL_DIM],const weight_t non_zero_list[PE_NUM][MAX_NON_ZERO], const ap_uint<6> max[PE_NUM],output_t output_matrix[OUT_ROW_DIM][OUT_COL_DIM]){
     input_t copy_memory[PE_NUM][IN_ROW_DIM][IN_COL_DIM];
     
     output_t hand_partition_output[PE_NUM][OUT_ROW_DIM][OUT_COL_DIM / PE_NUM];
@@ -81,7 +82,7 @@ void top_model(const input_t A_matrix[IN_ROW_DIM][IN_COL_DIM],const weight_t non
     #pragma HLS INTERFACE ap_memory port = output_matrix storage_type=RAM_S2P
     #pragma HLS array_partition variable = output_matrix dim = 2 type = block factor = PE_NUM
   //  #pragma HLS bind_storage variable = output_matrix type = RAM_S2p
-    
+    #pragma HLS array_partition variable = max dim = 0 complete
     
     #pragma HLS array_partition variable = non_zero_list dim = 1 complete
     
@@ -99,7 +100,7 @@ void top_model(const input_t A_matrix[IN_ROW_DIM][IN_COL_DIM],const weight_t non
         #pragma HLS unroll 
         //#pragma HLS inline off
         //PE(copy_memory[i], non_zero_list[i], output_matrix);
-        PE_v1(copy_memory[i], non_zero_list[i], hand_partition_output[i]);
+        PE_v1(copy_memory[i], non_zero_list[i], max[i],hand_partition_output[i]);
     }
     #ifndef __SYNTHESIS__
         // for(int i = 0;i < OUT_ROW_DIM; i++){

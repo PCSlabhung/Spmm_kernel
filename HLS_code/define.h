@@ -19,7 +19,7 @@
 typedef ap_fixed<16,8> value_t;
 typedef ap_fixed<8,4> input_t;
 typedef ap_fixed<8,4> output_t;
-typedef ap_int<16> index_t;
+typedef ap_uint<4> index_t;
 
 
 constexpr int B_matrix_par_col = OUT_COL_DIM / PE_NUM;
@@ -35,7 +35,7 @@ struct weight_t{
         return *this;
     }
 };
-void top_model(const input_t A_matrix[IN_ROW_DIM][IN_COL_DIM],const weight_t non_zero_list[PE_NUM][MAX_NON_ZERO], output_t output_matrix[OUT_ROW_DIM][OUT_COL_DIM]);
+void top_model(const input_t A_matrix[IN_ROW_DIM][IN_COL_DIM],const weight_t non_zero_list[PE_NUM][MAX_NON_ZERO], const ap_uint<6> max[PE_NUM], output_t output_matrix[OUT_ROW_DIM][OUT_COL_DIM]);
 
 
 #endif

@@ -77,7 +77,7 @@ int main(){
         switch(i){
             case 0:{
                 cout<<i<<"th outcome\n==============================================\n";
-                top_model(A_matrix, scheduled_weight0, out_matrix[i]);
+                top_model(A_matrix, scheduled_weight0, max0,out_matrix[i]);
                 cout<<"==============================================\n";
                 cout<<"golden_matrix\n";
                 print_matrix(golden_matrix[0]);
@@ -87,55 +87,55 @@ int main(){
             }
             case 1:{
                 cout<<i<<"th outcome\n==============================================\n";
-                top_model(A_matrix, scheduled_weight1, out_matrix[i]);
+                top_model(A_matrix, scheduled_weight1,max1,out_matrix[i]);
                  cout<<"==============================================\n";
                 break;
             }
             case 2:{
                 cout<<i<<"th outcome\n==============================================\n";
-                top_model(A_matrix, scheduled_weight2, out_matrix[i]);
+                top_model(A_matrix, scheduled_weight2, max2,out_matrix[i]);
                  cout<<"==============================================\n";
                 break;
             }
             case 3:{
                 cout<<i<<"th outcome\n==============================================\n";
-                top_model(A_matrix, scheduled_weight3, out_matrix[i]);
+                top_model(A_matrix, scheduled_weight3, max3,out_matrix[i]);
                  cout<<"==============================================\n";
                 break;
             }
             case 4:{
                 cout<<i<<"th outcome\n==============================================\n";
-                top_model(A_matrix, scheduled_weight4, out_matrix[i]);
+                top_model(A_matrix, scheduled_weight4, max4,out_matrix[i]);
                  cout<<"==============================================\n";
                 break;
             }
             case 5:{
                 cout<<i<<"th outcome\n==============================================\n";
-                top_model(A_matrix, scheduled_weight5, out_matrix[i]);
+                top_model(A_matrix, scheduled_weight5, max5,out_matrix[i]);
                  cout<<"==============================================\n";
                 break;
             }
             case 6:{
                 cout<<i<<"th outcome\n==============================================\n";
-                top_model(A_matrix, scheduled_weight6, out_matrix[i]);
+                top_model(A_matrix, scheduled_weight6,max6, out_matrix[i]);
                  cout<<"==============================================\n";
                 break;
             }
             case 7:{
                 cout<<i<<"th outcome\n==============================================\n";
-                top_model(A_matrix, scheduled_weight7, out_matrix[i]);
+                top_model(A_matrix, scheduled_weight7, max7,out_matrix[i]);
                  cout<<"==============================================\n";
                 break;
             }
             case 8:{
                 cout<<i<<"th outcome\n==============================================\n";
-                top_model(A_matrix, scheduled_weight8, out_matrix[i]);
+                top_model(A_matrix, scheduled_weight8, max8,out_matrix[i]);
                  cout<<"==============================================\n";
                 break;
             }
             case 9:{
                 cout<<i<<"th outcome\n==============================================\n";
-                top_model(A_matrix, scheduled_weight9, out_matrix[i]);
+                top_model(A_matrix, scheduled_weight9, max9,out_matrix[i]);
                  cout<<"==============================================\n";
                  cout<<"golden_matrix\n";
                 print_matrix(golden_matrix[9]);
